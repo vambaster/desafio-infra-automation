@@ -1,5 +1,8 @@
+
 ## Objetivo
 Instalar e configurar Docjker em 10 servidores linux
+
+Versao do ansible utilizado - Ansible 2.16.10
 ## Instruções
 
 ### Parte 1: Executar ansible
