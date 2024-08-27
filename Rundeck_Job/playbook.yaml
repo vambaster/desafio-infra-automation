@@ -1,0 +1,38 @@
+---
+- hosts: all
+  tasks:
+    - name: Instalar pacotes e dependencias
+      ansible.builtin.apt:
+        pkg:
+            - yum-utils
+        state: latest
+        update_cache: yes
+        become: yes
+
+    - name: Adicionando pacotes repositorio Docker
+      ansible.builtin.command:
+        args: 
+             - yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+    - name: Instalando o Docker
+      ansible.builtin.apt:
+        pgk:
+            - docker-ce
+            - docer-ce-cli
+            - containerd.io  
+        state: latest
+        update_cache: yes
+        become: yes
+
+    - name: Adicionando usuario ao grupo docker
+      ansible.builtin.user:
+        name: ansible_user
+        groups: docker
+        append: yes
+
+    - name: Habilitar e Iniciar o Servico Docker
+      ansible.builtin.systemd_service:
+      name: docker
+      state: started
+      enable: true
+---
